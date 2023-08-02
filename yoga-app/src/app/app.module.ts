@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AsanaComponent } from './components/commons/asana/asana.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AsanaComponent
   ],
   imports: [
     BrowserModule,
