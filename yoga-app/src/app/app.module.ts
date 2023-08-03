@@ -1,24 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AsanaComponent } from './components/commons/asana/asana.component';
+import { PagesModule } from './modules/pages/pages.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//asana material
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+
+import { AppComponent } from './app.component';
+
 
 @NgModule({
-  declarations: [AppComponent, AsanaComponent],
+  declarations: [
+    AppComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatCardModule,
-    MatButtonModule,
     HttpClientModule,
+    PagesModule
   ],
   providers: [],
   bootstrap: [AppComponent],
