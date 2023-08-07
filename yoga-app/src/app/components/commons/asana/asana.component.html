@@ -1,8 +1,4 @@
-<!--   url_svg: string;
-  url_png: string;
-  url_svg_alt: string;       [style.background-image]="'url(' + pose.url_svg_alt + ')'"-->
-
-<mat-card class="example-card p-2">
+<mat-card class="example-card p-3">
   <mat-card-header>
     <div mat-card-avatar>
       <img src="{{ pose.url_svg_alt }}" alt="" />
@@ -11,10 +7,10 @@
     <mat-card-subtitle>{{ pose.sanskrit_name_adapted }}</mat-card-subtitle>
   </mat-card-header>
   <img
-    class="mb-3"
     mat-card-image
     src="{{ pose.url_png }}"
     alt="asanas photo"
+    class="imgSizeLimited"
   />
   <mat-card-content>
     <p>

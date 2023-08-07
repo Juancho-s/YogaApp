@@ -11,7 +11,7 @@ import { Category } from 'src/app/models/category';
 export class HomeComponent implements OnInit {
   //DEBE LLEGAR UNA CATEGORIA PARA LISTAR TODAS LAS ASANAS QUE LE PERTENECEN
 
-  categoryClicked: Category = {} as Category;
+  @Input() categoryClicked: Category = {} as Category;
 
   constructor(private poseService: PoseService) {}
 
