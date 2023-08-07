@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, retry, throwError } from 'rxjs';
+import { Observable, Subject, catchError, retry, throwError } from 'rxjs';
 import { Category } from 'src/app/models/category';
 
 @Injectable({
@@ -28,5 +28,16 @@ export class CategoryService {
       catchError(this.handleError)
       // hay q agregar la posibilidad de recibir un error al suscribirse desde el componente q llame al servicio
     );
+  }
+
+  getAllCategoriesAsArray(): Category {
+    var categories: Category[] = [];
+    var x: Observable<Category[]>;
+    x = this.getAllCategories();
+    x.forEach((category: any) => {
+      categories.push(category);
+    });
+    console.log('servicio de categoria : ', categories);
+    return categories[1];
   }
 }

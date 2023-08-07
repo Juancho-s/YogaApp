@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/core/services/asana.service';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { PoseService } from 'src/app/core/services/pose.service';
+import { Category } from 'src/app/models/category';
 import { Pose } from 'src/app/models/pose';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-asana',
@@ -9,16 +10,19 @@ import { Observable } from 'rxjs';
   styleUrls: ['./asana.component.scss'],
 })
 export class AsanaComponent implements OnInit {
-  //with "Partial fix error"
-  pose: Partial<Pose> = {};
-  constructor(private apiService: ApiService) {}
+  //pose: Pose = {} as Pose;
+  @Input() pose: Pose = {} as Pose;
+  idPoseFromCategories: Number = 3;
+
+  constructor(private poseService: PoseService) {}
 
   ngOnInit() {
-    this.getDataFromApi();
+    //get one pose.
+    //this.getPoseById();
   }
 
-  getDataFromApi(): void {
-    this.apiService.getData().subscribe({
+  getPoseById(): void {
+    this.poseService.getPoseByIdFromApi(this.idPoseFromCategories).subscribe({
       next: (response) => {
         this.pose = response;
         console.log('getting : ', response);
