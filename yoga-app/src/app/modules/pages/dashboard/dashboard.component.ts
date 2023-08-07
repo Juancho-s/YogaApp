@@ -1,42 +1,53 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, Output, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { Router } from '@angular/router';
+import { PoseService } from 'src/app/core/services/pose.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit{
-
+export class DashboardComponent implements OnInit {
   lista: Category[] = [];
+  categoryClicked: Category = {} as Category;
 
-  constructor(private catService: CategoryService, private breakpointObserver: BreakpointObserver, private route: Router) {}
+  constructor(
+    private catService: CategoryService,
+    private breakpointObserver: BreakpointObserver,
+    private route: Router,
+    private poseService: PoseService
+  ) {}
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
     .pipe(
-      map(result => result.matches),
+      map((result) => result.matches),
       shareReplay()
     );
 
   ngOnInit(): void {
     this.catService.getAllCategories().subscribe({
-      next:(response: Category[])=>{
-        response.forEach((category: Category)=>{
+      next: (response: Category[]) => {
+        response.forEach((category: Category) => {
           this.lista.push(category);
-          console.info("Se incorporo la categoria: ", category.id);
+          //console.info('push category id : ', category.id);
         });
       },
-      error:(error)=>{
-        console.error("Algo ocurrio al llamar la categoria.");
+      error: (error) => {
+        console.error('Error detected to call categories.');
       },
-      complete:()=>{
-        console.info("Se completo la lista de categorias.");
-      }
+      complete: () => {
+        console.info('All categories listed.');
+      },
     });
+  }
+
+  getCategoryFromUserClickOnLista(categoryClicked: Category) {
+    this.poseService.setCategoryNavbar(categoryClicked);
   }
 }

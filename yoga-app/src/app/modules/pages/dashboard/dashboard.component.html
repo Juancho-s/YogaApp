@@ -1,12 +1,21 @@
+<!-- JUANCHI FIJATE ACA PARA MI EL NAV DEBERIA SER UN COMPONENTE Y 
+  INTEGRARLO A DASHBOARD PARA QUE EN DASHBOARD HAGAMOS LA INTEGRACION CATEGORIAS Y POSES -->
+
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
     <mat-toolbar>Categorias</mat-toolbar>
     <mat-nav-list *ngFor="let category of lista">
       <!-- TODO ITERAR CATEGORIAS -->
-      <a mat-list-item href="#">{{category.category_name}}</a>
+      <a mat-list-item (click)="getCategoryFromUserClickOnLista(category)"
+        >{{ category.category_name }}
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -16,7 +25,8 @@
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+        *ngIf="isHandset$ | async"
+      >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>yoga-app</span>
@@ -25,3 +35,4 @@
     <app-home></app-home>
   </mat-sidenav-content>
 </mat-sidenav-container>
+<!--  -->
