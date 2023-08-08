@@ -2,10 +2,11 @@ import { Component, OnInit, Output, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { Category } from 'src/app/models/category';
-import { CategoryService } from 'src/app/core/services/category.service';
+import { Category } from '../../../models/category';
+import { CategoryService } from '../../../core/services/category.service';
 import { Router } from '@angular/router';
-import { PoseService } from 'src/app/core/services/pose.service';
+import { PoseService } from '../../../core/services/pose.service';
+import { Pose } from '../../../models/pose';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,8 @@ import { PoseService } from 'src/app/core/services/pose.service';
 })
 export class DashboardComponent implements OnInit {
   lista: Category[] = [];
+  listaPoses: Pose[] = [];
+
   categoryClicked: Category = {} as Category;
 
   constructor(
@@ -47,7 +50,12 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getCategoryFromUserClickOnLista(categoryClicked: Category) {
-    this.poseService.setCategoryNavbar(categoryClicked);
+  // getCategoryFromUserClickOnLista(categoryClicked: Category) {
+  //   this.poseService.setCategoryNavbar(categoryClicked);
+  // }
+
+  sendPosesOnClick(clicked : Pose[]):void{
+    this.listaPoses = clicked;
   }
+
 }

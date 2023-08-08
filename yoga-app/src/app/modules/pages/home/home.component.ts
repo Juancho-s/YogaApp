@@ -1,7 +1,9 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
-import { CategoryService } from 'src/app/core/services/category.service';
-import { PoseService } from 'src/app/core/services/pose.service';
-import { Category } from 'src/app/models/category';
+import { Observable, map, shareReplay } from 'rxjs';
+import { PoseService } from '../../../core/services/pose.service';
+import { Category } from '../../../models/category';
+import { Pose } from '../../../models/pose';
 
 @Component({
   selector: 'app-home',
@@ -13,22 +15,40 @@ export class HomeComponent implements OnInit {
 
   @Input() categoryClicked: Category = {} as Category;
 
-  constructor(private poseService: PoseService) {}
+  @Input() posesClicked: Pose[] = [];
+
+  pose!: Pose;
+
+  constructor(
+    private poseService: PoseService,
+     private breakpointObserver: BreakpointObserver,
+    ) {}
+
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
 
   ngOnInit() {
-    this.subscribeNavbarClicker();
+    // this.subscribeNavbarClicker();
   }
 
   //categoria clickeada
-  subscribeNavbarClicker(): void {
-    this.poseService.getCategoryNavbar().subscribe({
-      next: (response) => {
-        this.categoryClicked = response;
-        //console.log('getting in HomeComponent: ', this.categoryClicked);
-      },
-      error: (error) => {
-        console.error('Error fetching data:', error);
-      },
-    });
+  // subscribeNavbarClicker(): void {
+  //   this.poseService.getCategoryNavbar().subscribe({
+  //     next: (response) => {
+  //       this.categoryClicked = response;
+  //       //console.log('getting in HomeComponent: ', this.categoryClicked);
+  //     },
+  //     error: (error) => {
+  //       console.error('Error fetching data:', error);
+  //     },
+  //   });
+  // }
+
+  sendPoseOnClick(clicked : Pose):void{
+    this.pose = clicked;
   }
 }

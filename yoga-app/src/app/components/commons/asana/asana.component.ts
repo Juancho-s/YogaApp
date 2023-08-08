@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { PoseService } from 'src/app/core/services/pose.service';
-import { Category } from 'src/app/models/category';
-import { Pose } from 'src/app/models/pose';
+import { PoseService } from '../../../core/services/pose.service';
+import { Category } from '../../../models/category';
+import { Pose } from '../../../models/pose';
 
 @Component({
   selector: 'app-asana',
@@ -10,26 +10,25 @@ import { Pose } from 'src/app/models/pose';
   styleUrls: ['./asana.component.scss'],
 })
 export class AsanaComponent implements OnInit {
-  //pose: Pose = {} as Pose;
+
   @Input() pose: Pose = {} as Pose;
+
   idPoseFromCategories: Number = 3;
 
   constructor(private poseService: PoseService) {}
 
   ngOnInit() {
-    //get one pose.
-    //this.getPoseById();
   }
 
-  getPoseById(): void {
-    this.poseService.getPoseByIdFromApi(this.idPoseFromCategories).subscribe({
-      next: (response) => {
-        this.pose = response;
-        console.log('getting : ', response);
-      },
-      error: (error) => {
-        console.error('Error fetching data:', error);
-      },
-    });
-  }
+  // getPoseById(): void {
+  //   this.poseService.getPoseByIdFromApi(this.idPoseFromCategories).subscribe({
+  //     next: (response) => {
+  //       this.pose = response;
+  //       console.log('getting : ', response);
+  //     },
+  //     error: (error) => {
+  //       console.error('Error fetching data:', error);
+  //     },
+  //   });
+  // }
 }

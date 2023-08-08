@@ -10,7 +10,7 @@
     <mat-toolbar>Categorias</mat-toolbar>
     <mat-nav-list *ngFor="let category of lista">
       <!-- TODO ITERAR CATEGORIAS -->
-      <a mat-list-item (click)="getCategoryFromUserClickOnLista(category)"
+      <a mat-list-item (click)="sendPosesOnClick(category.poses)"
         >{{ category.category_name }}
       </a>
     </mat-nav-list>
@@ -26,9 +26,8 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>yoga-app</span>
     </mat-toolbar>
     <!-- contenido -->
-    <app-home [categoryClicked]="lista[0]"></app-home>
+    <app-home [categoryClicked]="lista[0]" [posesClicked]="this.listaPoses"></app-home>
   </mat-sidenav-content>
 </mat-sidenav-container>
