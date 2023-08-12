@@ -26,8 +26,12 @@
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
+      <app-switch-theme></app-switch-theme>
     </mat-toolbar>
     <!-- contenido -->
-    <app-home [categoryClicked]="lista[0]" [posesClicked]="this.listaPoses"></app-home>
+    <app-home
+      [categoryClicked]="lista[0]"
+      [posesClicked]="this.listaPoses"
+    ></app-home>
   </mat-sidenav-content>
 </mat-sidenav-container>

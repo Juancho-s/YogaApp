@@ -1,28 +1,29 @@
 <div class="container">
-    <div *ngIf="this.posesClicked.length != 0; else templateName">
-      <div class="row align-items-start m-3">
-        <div class="col">
-          <mat-toolbar>Poses</mat-toolbar>
-          <mat-nav-list *ngFor="let pose of posesClicked">
-            <!-- TODO ITERAR CATEGORIAS -->
-            <a mat-list-item (click)="sendPoseOnClick(pose)">{{ pose.english_name }} </a>
-          </mat-nav-list>
+  <div *ngIf="this.posesClicked.length != 0; else templateName">
+    <div class="row align-items-start m-3">
+      <div class="col">
+        <mat-toolbar>Poses</mat-toolbar>
+        <mat-nav-list *ngFor="let pose of posesClicked">
+          <!-- TODO ITERAR CATEGORIAS -->
+          <a mat-list-item (click)="sendPoseOnClick(pose)"
+            >{{ pose.english_name }}
+          </a>
+        </mat-nav-list>
+      </div>
+      <div class="col">
+        <div class="row text-center">
+          <h1 class="bg-success">
+            {{ categoryClicked.category_name }}
+          </h1>
+          <p>
+            {{ categoryClicked.category_description }}
+          </p>
         </div>
-        <div class="col">
-          <div class="row text-center">
-            <h1 class="bg-success">
-              {{ categoryClicked.category_name }}
-            </h1>
-            <p>
-              {{ categoryClicked.category_description }}
-            </p>
-          </div>
-          <app-asana [pose]="pose"></app-asana>
-        </div>
+        <app-asana [pose]="pose"></app-asana>
       </div>
     </div>
-    <ng-template #templateName>
-      <!-- TODO Aca podriamos dejar un mensaje invitando a seleccionar una categoria -->
-    </ng-template>
+  </div>
+  <ng-template #templateName>
+    <!-- TODO Aca podriamos dejar un mensaje invitando a seleccionar una categoria -->
+  </ng-template>
 </div>
-
