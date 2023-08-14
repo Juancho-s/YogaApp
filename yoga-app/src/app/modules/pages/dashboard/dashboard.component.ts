@@ -16,6 +16,7 @@ import { Pose } from '../../../models/pose';
 export class DashboardComponent implements OnInit {
   lista: Category[] = [];
   listaPoses: Pose[] = [];
+  poseClicked: Pose = {} as Pose;
 
   categoryClicked: Category = {} as Category;
 
@@ -55,7 +56,12 @@ export class DashboardComponent implements OnInit {
   // }
 
   sendPosesOnClick(clicked : Pose[]):void{
+    console.log(clicked);
     this.listaPoses = clicked;
   }
 
+  sendPoseOnClick(clicked : Pose):void{
+    console.log(clicked);
+    this.poseClicked = clicked;
+  }
 }

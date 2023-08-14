@@ -15,9 +15,9 @@ export class HomeComponent implements OnInit {
 
   @Input() categoryClicked: Category = {} as Category;
 
-  @Input() posesClicked: Pose[] = [];
+  @Input() pose: Pose = {} as Pose;
 
-  pose!: Pose;
+  poseElegida: Pose = this.pose;
 
   constructor(
     private poseService: PoseService,
@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // this.subscribeNavbarClicker();
+    console.info(this.poseElegida)
   }
 
   //categoria clickeada
@@ -48,7 +49,4 @@ export class HomeComponent implements OnInit {
   //   });
   // }
 
-  sendPoseOnClick(clicked : Pose):void{
-    this.pose = clicked;
-  }
 }
