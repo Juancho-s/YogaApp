@@ -1,4 +1,3 @@
-import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 
 @Component({
@@ -7,16 +6,32 @@ import { Component, Inject } from '@angular/core';
   styleUrls: ['./switch-theme.component.scss'],
 })
 export class SwitchThemeComponent {
-  isDarkThemeActive = true;
-  // @Inject(DOCUMENT) private document: Document;
-  toggleMode() {
-    this.isDarkThemeActive = !this.isDarkThemeActive;
-    console.log(this.isDarkThemeActive);
-    const body = document.getElementsByTagName('body')[0];
-    if (this.isDarkThemeActive) {
-      body.classList.remove('dark-mode');
-    } else {
+  darkMode!: boolean;
+
+  constructor() {}
+
+  ngOnInit() {
+    var x = localStorage.getItem('dark_mode');
+    var x2: boolean = x ? JSON.parse(x) : false;
+    this.darkMode = x2;
+    console.log('valor del : ', this.darkMode);
+    var body = document.getElementsByTagName('body')[0];
+    if (this.darkMode) {
       body.classList.add('dark-mode');
+    } else {
+      body.classList.remove('dark-mode');
     }
+  }
+
+  darkTheme() {
+    this.darkMode = !this.darkMode;
+    const body = document.getElementsByTagName('body')[0];
+    if (this.darkMode) {
+      body.classList.add('dark-mode');
+    } else {
+      body.classList.remove('dark-mode');
+    }
+    localStorage.setItem('dark_mode', JSON.stringify(this.darkMode));
+    console.log('local storage : ', localStorage.getItem('dark_mode'));
   }
 }

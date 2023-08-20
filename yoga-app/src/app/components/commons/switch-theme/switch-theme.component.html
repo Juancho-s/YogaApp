@@ -1,1 +1,11 @@
-<mat-slide-toggle (click)="toggleMode()">ThemeSwitcher</mat-slide-toggle>
+<div class="example-button-container">
+  <button
+    (click)="darkTheme()"
+    mat-mini-fab
+    color="accent"
+    matTooltip="Change Styles"
+    aria-label="Example fab with a heart icon"
+  >
+    <mat-icon fontIcon="{{ darkMode ? 'light_mode' : 'dark_mode' }}"></mat-icon>
+  </button>
+</div>
