@@ -17,15 +17,15 @@ export class DashboardComponent implements OnInit {
   lista: Category[] = [];
   listaPoses: Pose[] = [];
   poseClicked: Pose = {} as Pose;
-
   categoryClicked: Category = {} as Category;
+  categories$!: Observable<Category[]>;
 
   constructor(
     private catService: CategoryService,
-    private breakpointObserver: BreakpointObserver,
-    private route: Router,
-    private poseService: PoseService
-  ) {}
+    private breakpointObserver: BreakpointObserver
+  ) {
+    this.categories$! = catService.getAllCategories();
+  }
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -34,33 +34,18 @@ export class DashboardComponent implements OnInit {
       shareReplay()
     );
 
-  ngOnInit(): void {
-    this.catService.getAllCategories().subscribe({
-      next: (response: Category[]) => {
-        response.forEach((category: Category) => {
-          this.lista.push(category);
-          //console.info('push category id : ', category.id);
-        });
-      },
-      error: (error) => {
-        console.error('Error detected to call categories.');
-      },
-      complete: () => {
-        console.info('All categories listed.');
-      },
-    });
-  }
+  ngOnInit(): void {}
 
   // getCategoryFromUserClickOnLista(categoryClicked: Category) {
   //   this.poseService.setCategoryNavbar(categoryClicked);
   // }
 
-  sendPosesOnClick(clicked : Pose[]):void{
+  sendPosesOnClick(clicked: Pose[]): void {
     console.log(clicked);
     this.listaPoses = clicked;
   }
 
-  sendPoseOnClick(clicked : Pose):void{
+  sendPoseOnClick(clicked: Pose): void {
     console.log(clicked);
     this.poseClicked = clicked;
   }

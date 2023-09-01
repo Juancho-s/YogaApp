@@ -1,6 +1,12 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, catchError, retry, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  retry,
+  throwError,
+} from 'rxjs';
 import { Category } from 'src/app/models/category';
 
 @Injectable({
@@ -8,8 +14,21 @@ import { Category } from 'src/app/models/category';
 })
 export class CategoryService {
   private apiUrl = 'https://yoga-api-nzy4.onrender.com/v1/categories';
+  categories$: Observable<Category[]>;
+  categoriesAsArray: Category[] = [];
 
-  constructor(private http: HttpClient) {}
+  private message: BehaviorSubject<string> = new BehaviorSubject<string>(
+    'Probando el behavior'
+  );
+
+  constructor(private http: HttpClient) {
+    this.categories$ = this.getAllCategories();
+    this.categories$.subscribe({
+      next: (response) => {
+        response.map((category) => this.categoriesAsArray.push(category));
+      },
+    });
+  }
 
   handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
@@ -30,14 +49,11 @@ export class CategoryService {
     );
   }
 
-  getAllCategoriesAsArray(): Category {
-    var categories: Category[] = [];
-    var x: Observable<Category[]>;
-    x = this.getAllCategories();
-    x.forEach((category: any) => {
-      categories.push(category);
-    });
-    console.log('servicio de categoria : ', categories);
-    return categories[1];
+  get messageSubject(): Observable<string> {
+    return this.message.asObservable();
+  }
+
+  set editMessageSubject(newValue: string) {
+    this.message.next(newValue);
   }
 }

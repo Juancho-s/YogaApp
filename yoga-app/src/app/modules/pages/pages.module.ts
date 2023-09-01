@@ -5,6 +5,7 @@ import { AsanaComponent } from '../../components/commons/asana/asana.component';
 import { MaterialModule } from '../material/material.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SwitchThemeComponent } from '../../components/commons/switch-theme/switch-theme.component';
+import { TreeNavComponent } from 'src/app/components/commons/tree-nav/tree-nav.component';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { SwitchThemeComponent } from '../../components/commons/switch-theme/swit
     AsanaComponent,
     DashboardComponent,
     SwitchThemeComponent,
+    TreeNavComponent,
   ],
   imports: [CommonModule, MaterialModule],
   exports: [HomeComponent],

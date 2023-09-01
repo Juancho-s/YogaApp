@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [],
@@ -22,6 +24,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatListModule,
     MatSlideToggleModule,
     MatTooltipModule,
+    MatTreeModule,
+    MatMenuModule,
   ],
 })
 export class MaterialModule {}

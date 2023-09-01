@@ -7,51 +7,11 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    <a
-      href="/"
-      class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none m-4"
-    >
-      <i class="bi bi-stars"></i>
-      <h2 class="fs-4">Yoga App</h2>
-    </a>
+    <h2>Yoga App</h2>
     <hr />
 
     <!-- SIDEBAR -->
-    <div class="flex-shrink-0 p-3" style="width: 280px">
-      <ul class="list-unstyled ps-0">
-        <mat-nav-list *ngFor="let category of lista">
-          <li class="mb-1" mat-list-item>
-            <div class="accordion accordion-flush" id="accordionExample">
-              <h3
-                class="accordion-button btn btn-toggle rounded border-0 collapsed"
-                data-bs-toggle="collapse"
-                [attr.data-bs-target]="'#' + category.id"
-                aria-expanded="false"
-                (click)="sendPosesOnClick(category.poses)"
-              >
-                {{ category.category_name }}
-              </h3>
-            </div>
-            <div class="collapse collapse-horizontal" id="{{ category.id }}">
-              <ul
-                class="btn-toggle-nav list-unstyled fw-medium pb-1 small text-start"
-              >
-                <!-- Asana Name -->
-                <mat-nav-list *ngFor="let pose of category.poses">
-                  <li>
-                    <a
-                      class="nav-link btn text-decoration-none rounded fs-7"
-                      (click)="sendPoseOnClick(pose)"
-                      >{{ pose.english_name }}</a
-                    >
-                  </li>
-                </mat-nav-list>
-              </ul>
-            </div>
-          </li>
-        </mat-nav-list>
-      </ul>
-    </div>
+    <app-tree-nav></app-tree-nav>
     <!-- SIDEBAR -->
   </mat-sidenav>
   <mat-sidenav-content>
