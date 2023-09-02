@@ -20,6 +20,7 @@ export class CategoryService {
   private message: BehaviorSubject<string> = new BehaviorSubject<string>(
     'Probando el behavior'
   );
+  instancia: any = 0;
 
   constructor(private http: HttpClient) {
     this.categories$ = this.getAllCategories();
@@ -28,6 +29,8 @@ export class CategoryService {
         response.map((category) => this.categoriesAsArray.push(category));
       },
     });
+    this.instancia++;
+    console.log('instance of category service : ', this.instancia);
   }
 
   handleError(error: HttpErrorResponse) {

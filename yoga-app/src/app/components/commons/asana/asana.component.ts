@@ -10,15 +10,13 @@ import { Pose } from '../../../models/pose';
   styleUrls: ['./asana.component.scss'],
 })
 export class AsanaComponent implements OnInit {
-
   @Input() pose: Pose = {} as Pose;
 
   idPoseFromCategories: Number = 3;
 
   constructor(private poseService: PoseService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   // getPoseById(): void {
   //   this.poseService.getPoseByIdFromApi(this.idPoseFromCategories).subscribe({

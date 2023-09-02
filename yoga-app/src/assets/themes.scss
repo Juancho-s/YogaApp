@@ -9,7 +9,7 @@ $light-theme: mat.define-light-theme(
       accent: mat.define-palette(mat.$light-green-palette, A400),
       // warn:
     ),
-    typography: mat.define-typography-config(),
+
     density: 0,
   )
 );
@@ -21,7 +21,6 @@ $dark-theme: mat.define-dark-theme(
       accent: mat.define-palette(mat.$pink-palette, 300),
       // warn:
     ),
-    typography: mat.define-typography-config(),
     density: 0,
   )
 );
