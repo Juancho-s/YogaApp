@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { Category } from 'src/app/models/category';
 import { Observable } from 'rxjs';
 
-interface FoodNode {
+interface CategoryNode {
   name: string;
-  children?: FoodNode[];
+  children?: CategoryNode[];
+  categoryNode?: Category;
 }
 
 @Component({
@@ -19,28 +20,33 @@ export class TreeNavComponent {
   categories: Category[] = [];
   categories$: Observable<Category[]>;
   /* Angular material tree nav */
-  TREE_DATA: FoodNode[] = [];
-  treeControl = new NestedTreeControl<FoodNode>((node) => node.children);
-  dataSource = new MatTreeNestedDataSource<FoodNode>();
+  TREE_DATA: CategoryNode[] = [];
+  treeControl = new NestedTreeControl<CategoryNode>((node) => node.children);
+  dataSource = new MatTreeNestedDataSource<CategoryNode>();
+  /*  */
+  @Output() categoryClick = new EventEmitter<any>();
 
   constructor(private categoryService: CategoryService) {
     this.categories$ = this.categoryService.categories$;
-    this.suscripcion();
+    this.categories$Suscripcion();
   }
 
-  convertCategoryToFoodNode(category: Category): FoodNode {
-    var foodNode: FoodNode = {
+  convertCategoryToCategoryNode(category: Category): CategoryNode {
+    var CategoryNode: CategoryNode = {
       name: category.category_name,
-      children: category.poses.map((pose) => ({ name: pose.english_name })),
+      children: category.poses.map((pose) => ({
+        name: pose.english_name,
+      })),
+      categoryNode: category,
     };
-    return foodNode;
+    return CategoryNode;
   }
 
-  suscripcion() {
+  categories$Suscripcion() {
     this.categories$.subscribe({
       next: (response) => {
         response.forEach((category) => {
-          this.TREE_DATA.push(this.convertCategoryToFoodNode(category));
+          this.TREE_DATA.push(this.convertCategoryToCategoryNode(category));
           this.categories.push(category);
         });
       },
@@ -48,20 +54,22 @@ export class TreeNavComponent {
         console.log('treeNavError', error);
       },
       complete: () => {
+        this.categoryClick.emit(this.categories[0]);
         this.dataSource.data = this.TREE_DATA;
         console.log('completado, valor de TREE_DATA', this.TREE_DATA);
       },
     });
   }
 
-  hasChild = (_: number, node: FoodNode) =>
+  hasChild = (_: number, node: CategoryNode) =>
     !!node.children && node.children.length > 0;
 
-  categoryClicked(node: FoodNode) {
-    console.log('node categoryClicked : ', node);
+  categoryClicked(node: CategoryNode) {
+    if (node.categoryNode)
+      this.categoryService.setCategorySelectedInNav(node.categoryNode);
   }
 
-  poseClicked(node: FoodNode) {
-    console.log('node poseClicked : ', node);
+  poseClicked(node: CategoryNode) {
+    this.categoryService.setPoseSelectedInNavSubject(node.name);
   }
 }

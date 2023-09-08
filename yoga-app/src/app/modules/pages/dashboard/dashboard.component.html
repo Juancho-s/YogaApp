@@ -24,7 +24,7 @@
       </button>
       <button
         mat-mini-fab
-        color="primary"
+        color="accent"
         matTooltip="Home"
         aria-label="Example fab with a heart icon"
         class="iconDashboard"
@@ -36,6 +36,7 @@
       <app-switch-theme class="buttonPositioner"></app-switch-theme>
     </mat-toolbar>
     <!-- contenido -->
-    <app-asana [pose]="this.poseClicked"></app-asana>
+
+    <app-home></app-home>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,9 +1,10 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable, map, shareReplay } from 'rxjs';
-import { PoseService } from '../../../core/services/pose.service';
-import { Category } from '../../../models/category';
-import { Pose } from '../../../models/pose';
+import { Category } from 'src/app/models/category';
+import { CategoryService } from '../../../core/services/category.service';
+import { compileNgModule } from '@angular/compiler';
+import { Pose } from 'src/app/models/pose';
 
 @Component({
   selector: 'app-home',
@@ -12,41 +13,26 @@ import { Pose } from '../../../models/pose';
 })
 export class HomeComponent implements OnInit {
   //DEBE LLEGAR UNA CATEGORIA PARA LISTAR TODAS LAS ASANAS QUE LE PERTENECEN
+  category?: Category;
+  pose!: Pose;
+  poseDetails!: Pose;
 
-  @Input() categoryClicked: Category = {} as Category;
+  constructor(private categoryService: CategoryService) {
+    this.categoryService.getCategorySelectedInNav().subscribe((response) => {
+      this.category = response;
+    });
 
-  @Input() pose: Pose = {} as Pose;
-
-  poseElegida: Pose = this.pose;
-
-  constructor(
-    private poseService: PoseService,
-     private breakpointObserver: BreakpointObserver,
-    ) {}
-
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) => result.matches),
-      shareReplay()
-    );
-
-  ngOnInit() {
-    // this.subscribeNavbarClicker();
-    console.info(this.poseElegida)
+    this.categoryService.getPoseSelectedInNavSubject().subscribe({
+      next: (response) => {
+        console.log('category', this.category?.category_name);
+        this.category?.poses.forEach((pose: Pose) => {
+          if (pose.english_name === response) {
+            this.poseDetails = pose;
+          }
+        });
+      },
+    });
   }
 
-  //categoria clickeada
-  // subscribeNavbarClicker(): void {
-  //   this.poseService.getCategoryNavbar().subscribe({
-  //     next: (response) => {
-  //       this.categoryClicked = response;
-  //       //console.log('getting in HomeComponent: ', this.categoryClicked);
-  //     },
-  //     error: (error) => {
-  //       console.error('Error fetching data:', error);
-  //     },
-  //   });
-  // }
-
+  ngOnInit() {}
 }

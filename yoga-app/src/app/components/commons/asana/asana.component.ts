@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { PoseService } from '../../../core/services/pose.service';
 import { Category } from '../../../models/category';
 import { Pose } from '../../../models/pose';
+import { CategoryService } from 'src/app/core/services/category.service';
 
 @Component({
   selector: 'app-asana',
@@ -10,23 +11,9 @@ import { Pose } from '../../../models/pose';
   styleUrls: ['./asana.component.scss'],
 })
 export class AsanaComponent implements OnInit {
-  @Input() pose: Pose = {} as Pose;
+  @Input() pose!: Pose;
 
-  idPoseFromCategories: Number = 3;
-
-  constructor(private poseService: PoseService) {}
+  constructor() {}
 
   ngOnInit() {}
-
-  // getPoseById(): void {
-  //   this.poseService.getPoseByIdFromApi(this.idPoseFromCategories).subscribe({
-  //     next: (response) => {
-  //       this.pose = response;
-  //       console.log('getting : ', response);
-  //     },
-  //     error: (error) => {
-  //       console.error('Error fetching data:', error);
-  //     },
-  //   });
-  // }
 }

@@ -1,18 +1,17 @@
-<mat-card class="example-card p-3">
+<mat-card class="example-card">
   <mat-card-header>
-    <div mat-card-avatar>
-      <img src={{pose.url_svg}} alt="" />
-    </div>
+    <img mat-card-avatar src="{{ pose.url_svg }}" alt="" />
     <mat-card-title>{{ pose.english_name }}</mat-card-title>
     <mat-card-subtitle>{{ pose.sanskrit_name_adapted }}</mat-card-subtitle>
   </mat-card-header>
   <img
     mat-card-image
-    src={{pose.url_png}}
+    src="{{ pose.url_png }}"
     alt="asanas photo"
     class="imgSizeLimited"
   />
   <mat-card-content>
+    <mat-card-title> Resume : </mat-card-title>
     <p>
       {{ pose.pose_description }}
     </p>

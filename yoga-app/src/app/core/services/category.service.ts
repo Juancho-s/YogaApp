@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
   Observable,
+  Subject,
   catchError,
   retry,
   throwError,
 } from 'rxjs';
 import { Category } from 'src/app/models/category';
+import { Pose } from 'src/app/models/pose';
 
 @Injectable({
   providedIn: 'root',
@@ -16,10 +18,15 @@ export class CategoryService {
   private apiUrl = 'https://yoga-api-nzy4.onrender.com/v1/categories';
   categories$: Observable<Category[]>;
   categoriesAsArray: Category[] = [];
+  categorySelected: any;
 
   private message: BehaviorSubject<string> = new BehaviorSubject<string>(
     'Probando el behavior'
   );
+
+  private categorySelectedInNav = new Subject<Category>();
+  private poseSelectedInNav = new Subject<string>();
+
   instancia: any = 0;
 
   constructor(private http: HttpClient) {
@@ -27,8 +34,10 @@ export class CategoryService {
     this.categories$.subscribe({
       next: (response) => {
         response.map((category) => this.categoriesAsArray.push(category));
+        this.setCategorySelectedInNav(this.categoriesAsArray[0]);
       },
     });
+    /* this service is a Singleton */
     this.instancia++;
     console.log('instance of category service : ', this.instancia);
   }
@@ -58,5 +67,23 @@ export class CategoryService {
 
   set editMessageSubject(newValue: string) {
     this.message.next(newValue);
+  }
+
+  getCategorySelectedInNav(): Observable<Category> {
+    return this.categorySelectedInNav.asObservable();
+  }
+
+  setCategorySelectedInNav(categoryClicked: Category) {
+    this.categorySelectedInNav.next(categoryClicked);
+    console.log('setCategory', categoryClicked.category_name);
+  }
+
+  getPoseSelectedInNavSubject(): Observable<string> {
+    return this.poseSelectedInNav.asObservable();
+  }
+
+  setPoseSelectedInNavSubject(poseClickedName: string) {
+    this.poseSelectedInNav.next(poseClickedName);
+    console.log('setposeSelectedInNav', poseClickedName);
   }
 }

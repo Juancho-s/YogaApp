@@ -16,16 +16,9 @@ import { Pose } from '../../../models/pose';
 export class DashboardComponent implements OnInit {
   lista: Category[] = [];
   listaPoses: Pose[] = [];
-  poseClicked: Pose = {} as Pose;
-  categoryClicked: Category = {} as Category;
-  categories$!: Observable<Category[]>;
+  poseClicked!: Pose;
 
-  constructor(
-    private catService: CategoryService,
-    private breakpointObserver: BreakpointObserver
-  ) {
-    this.categories$! = catService.getAllCategories();
-  }
+  constructor(private breakpointObserver: BreakpointObserver) {}
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -35,10 +28,6 @@ export class DashboardComponent implements OnInit {
     );
 
   ngOnInit(): void {}
-
-  // getCategoryFromUserClickOnLista(categoryClicked: Category) {
-  //   this.poseService.setCategoryNavbar(categoryClicked);
-  // }
 
   sendPosesOnClick(clicked: Pose[]): void {
     console.log(clicked);
