@@ -16,10 +16,12 @@ export class HomeComponent implements OnInit {
   category?: Category;
   pose!: Pose;
   poseDetails!: Pose;
+  x: boolean = true;
 
   constructor(private categoryService: CategoryService) {
     this.categoryService.getCategorySelectedInNav().subscribe((response) => {
       this.category = response;
+      this.x = true;
     });
 
     this.categoryService.getPoseSelectedInNavSubject().subscribe({
@@ -30,6 +32,7 @@ export class HomeComponent implements OnInit {
             this.poseDetails = pose;
           }
         });
+        this.x = false;
       },
     });
   }
