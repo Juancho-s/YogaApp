@@ -1,7 +1,7 @@
 .mat-tree {
   padding: 5%;
   white-space: nowrap;
-  width: 300px;
+  min-width: 250px;
 }
 
 .example-tree-invisible {
@@ -18,7 +18,7 @@
  * This padding sets alignment of the nested nodes.
  */
 .example-tree .mat-nested-tree-node div[role="group"] {
-  padding-left: 10%;
+  padding-left: 20%;
 }
 
 /*
@@ -27,18 +27,16 @@
  * under the same parent.
  */
 .example-tree div[role="group"] > .mat-tree-node {
-  padding-left: 5%;
 }
 
 .mat-tree-node {
-  margin-left: 5%;
-  margin-right: 25%;
-  white-space: nowrap;
-  overflow: hidden;
+  padding: 0 20px;
+  cursor: pointer;
+  &:hover {
+    color: green;
+  }
 }
 
 .link {
-  color: -webkit-link; /* Color predeterminado para enlaces en navegadores WebKit (Safari, Chrome) */
   text-decoration: underline; /* Subrayado predeterminado para enlaces */
-  cursor: pointer; /* Cambiar el cursor a una mano en hover */
 }
