@@ -1,11 +1,16 @@
 .asana-details-container {
-  margin: auto;
-  max-width: 90%;
-  margin: 3% auto;
+  margin: 3%;
   padding: 3%;
+  display: block;
+  text-align: center;
 }
 
 .imgSizeLimited {
   max-width: 100%;
   margin: auto;
+}
+.imgContainer {
+  margin: auto;
+  max-width: 100%;
+  margin: 50px 0;
 }

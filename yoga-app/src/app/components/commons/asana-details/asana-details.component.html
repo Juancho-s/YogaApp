@@ -1,17 +1,22 @@
 <div class="asana-details-container" *ngIf="poseDetails">
-  <h3 class="mat-h1">Asana : {{ poseDetails.english_name }}</h3>
-  <p class="">Category : {{ poseDetails.category_name }}</p>
-  <p>Sanskrit Name : {{ poseDetails.sanskrit_name_adapted }}</p>
+  <h3 class="mat-h1">Asana english name : {{ poseDetails.english_name }}</h3>
+  <p class="">
+    Category : <em>{{ poseDetails.category_name }}</em>
+  </p>
+  <p>
+    Sanskrit Name : <em>{{ poseDetails.sanskrit_name_adapted }}</em>
+  </p>
+
   <h3 class="mat-h2">Benefits:</h3>
   <p>{{ poseDetails.pose_benefits }}</p>
-  <img src="{{ poseDetails.url_svg_alt }}" alt="" />
 
-  <img
-    mat-card-image
-    src="{{ poseDetails.url_png }}"
-    alt="asanas photo"
-    class="imgSizeLimited"
-  />
+  <div class="imgContainer">
+    <img
+      src="{{ poseDetails.url_png }}"
+      alt="asanas photo"
+      class="imgSizeLimited"
+    />
+  </div>
 
   <h3 class="mat-h2">Description :</h3>
   <p>{{ poseDetails.pose_description }}</p>

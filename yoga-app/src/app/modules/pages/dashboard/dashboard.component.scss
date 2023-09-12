@@ -6,3 +6,11 @@
   margin: 10px;
   font-size: 36px;
 }
+
+.backgroundContent {
+  opacity: 0.8;
+  background-image: radial-gradient(rgb(3, 174, 3) 0.5px, transparent 0.5px);
+
+  background-size: 10px 10px;
+  background-position: 0 0, 10px 10px;
+}
